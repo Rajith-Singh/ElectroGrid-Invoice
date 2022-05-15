@@ -26,7 +26,7 @@ public class Invoice
 			} 
 		
 		
-		public String insertService(String cus_nic, String month, String string){ 
+		public String insertService(String cus_nic, String month, String unit_calculation){ 
 			
 					String output = ""; 
 					
@@ -47,7 +47,7 @@ public class Invoice
 						preparedStmt.setInt(1, 0);
 						preparedStmt.setString(2, cus_nic);
 						preparedStmt.setString(3, month);
-						preparedStmt.setString(4, string);
+						preparedStmt.setString(4, unit_calculation);
 						// execute the statement
  
 						preparedStmt.execute(); 

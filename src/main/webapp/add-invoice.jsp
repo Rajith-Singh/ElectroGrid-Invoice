@@ -44,7 +44,7 @@
          <p class="lead"><i class="	fa fa-address-card"></i> Fill in the following details to create the user invoice</p>
          <small>* = required field</small>
          
-         <form class="form" id="formInvoice" name="formInvoice" method="post">
+         <form class="form" id="formInvoice" name="formInvoice">
             <div class="form-group">
             	<h4>Add Customer NIC</h4>
                <input type="text" placeholder="* Customer NIC" name="cus-nic" required />

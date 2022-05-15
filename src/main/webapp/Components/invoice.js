@@ -1,69 +1,75 @@
-$(document).ready(function() 
-{  
-	if ($("#alertSuccess").text().trim() == "")  
-	{   
-		$("#alertSuccess").hide();  
-	} 
-	$("#alertError").hide(); 
-}); 
+$.ajax( 
+{ 
+	 url : "InvoiceAPI", 
+	 type : type, 
+	 data : $("#formInvoice").serialize(), 
+	 dataType : "text", 
+	 complete : function(response, status) 
+	 { 
+	 	onItemSaveComplete(response.responseText, status); 
+	 } 
+});
+
+
 
 //SAVE ============================================ 
 $(document).on("click", "#btnSave", function(event)
 { 
 // Clear alerts---------------------
- $("#alertSuccess").text(""); 
- $("#alertSuccess").hide(); 
- $("#alertError").text(""); 
- $("#alertError").hide(); 
+	 $("#alertSuccess").text(""); 
+	 $("#alertSuccess").hide(); 
+	 $("#alertError").text(""); 
+	 $("#alertError").hide(); 
 // Form validation-------------------
-var status = validateInvoiceForm(); 
-if (status != true) 
- { 
- $("#alertError").text(status); 
- $("#alertError").show(); 
- return; 
- } 
+	var status = validateInvoiceForm(); 
+	if (status != true) 
+	 { 
+	 	$("#alertError").text(status); 
+	 	$("#alertError").show(); 
+	 	return; 
+	 }
+	 
 // If valid------------------------
 var t = ($("#hidInvoiceIDSave").val() == "") ? "POST" : "PUT"; 
  $.ajax( 
  { 
- url : "InvoiceAPI", 
- type : t, 
- data : $("#formInvoice").serialize(), 
- dataType : "text", 
- complete : function(response, status) 
- { 
- onInvoiceSaveComplete(response.responseText, status); 
- } 
- }); 
-});
+	 url : "InvoiceAPI", 
+	 type : t, 
+	 data : $("#formInvoice").serialize(), 
+	 dataType : "text", 
+	 complete : function(response, status) 
+	 { 
+	 onInvoiceSaveComplete(response.responseText, status); 
+	 }
+	 }); 
+ }); 	  
 
 function onInvoiceSaveComplete(response, status)
 { 
-if (status == "success") 
- { 
- var resultSet = JSON.parse(response); 
- if (resultSet.status.trim() == "success") 
- { 
- $("#alertSuccess").text("Successfully saved."); 
- $("#alertSuccess").show(); 
- $("#divInvoicesGrid").html(resultSet.data); 
- } else if (resultSet.status.trim() == "error") 
- { 
- $("#alertError").text(resultSet.data); 
- $("#alertError").show(); 
- } 
- } else if (status == "error") 
- { 
- $("#alertError").text("Error while saving."); 
- $("#alertError").show(); 
- } else
- { 
- $("#alertError").text("Unknown error while saving.."); 
- $("#alertError").show(); 
- }
-$("#hidInvoiceIDSave").val(""); 
-$("#formInvoice")[0].reset(); 
+	if (status == "success") 
+	 { 
+	 var resultSet = JSON.parse(response); 
+	 if (resultSet.status.trim() == "success") 
+	 { 
+	 	$("#alertSuccess").text("Successfully saved."); 
+	 	$("#alertSuccess").show(); 
+	 	$("#divInvoicesGrid").html(resultSet.data); 
+	 } else if (resultSet.status.trim() == "error") 
+	 { 
+	 	$("#alertError").text(resultSet.data); 
+	 	$("#alertError").show(); 
+	 } 
+	 } else if (status == "error") 
+	 { 
+	 	$("#alertError").text("Error while saving."); 
+	 	$("#alertError").show(); 
+	 } else
+	 { 
+	 	$("#alertError").text("Unknown error while saving.."); 
+	 	$("#alertError").show(); 
+	 }
+	$("#hidInvoiceIDSave").val(""); 
+	$("#formInvoice")[0].reset(); 
 }
 
 // UPDATE==========================================

@@ -43,7 +43,8 @@
          <h1 class="large text-primary">Add Invoice</h1>
          <p class="lead"><i class="	fa fa-address-card"></i> Fill in the following details to create the user invoice</p>
          <small>* = required field</small>
-         <form class="form">
+         
+         <form class="form" id="formInvoice" name="formInvoice" method="post">
             <div class="form-group">
             	<h4>Add Customer NIC</h4>
                <input type="text" placeholder="* Customer NIC" name="cus-nic" required />
@@ -57,7 +58,7 @@
                <input type="number" placeholder="* No of Units" name="unit_calculation" />
             </div>
                   
-         <button class="btn btn-primary my-1" id="btnSave"> Submit </button> 
+         <input type="submit" class="btn btn-primary my-1" id="btnSave"> Submit </button> 
 
 <!--  		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary my-1">  -->
 

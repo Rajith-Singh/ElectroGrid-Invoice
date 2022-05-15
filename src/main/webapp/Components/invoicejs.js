@@ -1,16 +1,13 @@
-$.ajax( 
-{ 
-	 url : "InvoiceAPI", 
-	 type : type, 
-	 data : $("#formInvoice").serialize(), 
-	 dataType : "text", 
-	 complete : function(response, status) 
-	 { 
-	 	onItemSaveComplete(response.responseText, status); 
-	 } 
-});
+ $(document).ready(function()
+{
+if ($("#alertSuccess").text().trim() == "")
+{
+$("#alertSuccess").hide();
+}
 
+$("#alertError").hide();
 
+})
 
 //SAVE ============================================ 
 $(document).on("click", "#btnSave", function(event)
@@ -29,6 +26,7 @@ $(document).on("click", "#btnSave", function(event)
 	 	return; 
 	 }
 	 
+	 
 // If valid------------------------
 var t = ($("#hidInvoiceIDSave").val() == "") ? "POST" : "PUT"; 
  $.ajax( 
@@ -42,7 +40,8 @@ var t = ($("#hidInvoiceIDSave").val() == "") ? "POST" : "PUT";
 	 onInvoiceSaveComplete(response.responseText, status); 
 	 }
 	 }); 
- }); 	  
+ }); 	 
+
 
 function onInvoiceSaveComplete(response, status)
 { 

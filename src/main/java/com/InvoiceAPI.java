@@ -79,7 +79,13 @@ public class InvoiceAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		Map paras = getParasMap(request); 
+		 String output = invoiceObj.updateInvoice(paras.get("hidItemIDSave").toString(), 
+				 							paras.get("itemCode").toString(), 
+				 							paras.get("itemName").toString(), 
+				 							paras.get("itemPrice").toString(), 
+				 							paras.get("itemDesc").toString()); 
+		response.getWriter().write(output); 
 	}
 
 	/**

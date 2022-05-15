@@ -131,7 +131,7 @@ public class Invoice
 
 			
 			
-/*			public String updateInvoice(String ID, String code, String name, String price, String desc){ 
+			public String updateInvoice(String ID, String code, String name, String price, String desc){ 
 				
 					String output = ""; 
 					
@@ -201,5 +201,5 @@ public class Invoice
 			
 			
 			
-*/			
+			
 } 

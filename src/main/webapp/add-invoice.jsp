@@ -12,7 +12,7 @@
 	  <link rel="shortcut icon" href="favicon.ico?" type="image/x-icon" />
       <link rel="stylesheet" href="css/styles.css" />
       <script src="Components/jquery-3.2.1.min.js"></script>
-	  <script src="Components/tems.js"></script>
+	  <script src="Components/invoice.js"></script>
       <title>ElectroGrid</title>
    </head>
    <body>

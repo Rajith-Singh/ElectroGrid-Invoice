@@ -64,13 +64,11 @@ public class InvoiceAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String output = invoiceObj.insertService(request.getParameter("cus_nic"),
-												 request.getParameter("month"),
-												 request.getParameter("unit_calculation"));
-		
-		response.getWriter().write(output); 
-		
-		doGet(request, response);
+
+		String output = invoiceObj.insertService(request.getParameter("cus_nic"), 
+												 request.getParameter("month"), 
+												 Double.parseDouble(request.getParameter("unit_calculation")));
+		response.getWriter().write(output);
 	}
 
 	/**
@@ -79,12 +77,13 @@ public class InvoiceAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		
+		
 		Map paras = getParasMap(request); 
-		 String output = invoiceObj.updateInvoice(paras.get("hidItemIDSave").toString(), 
-				 							paras.get("itemCode").toString(), 
-				 							paras.get("itemName").toString(), 
-				 							paras.get("itemPrice").toString(), 
-				 							paras.get("itemDesc").toString()); 
+		 String output = invoiceObj.updateService(paras.get("hidInvoiceIDSave").toString(), 
+				 							paras.get("cus_nic").toString(), 
+				 							paras.get("month").toString(), 
+				 							Double.(paras.get("unit_calculation")).toString()); 
 		response.getWriter().write(output); 
 	}
 
@@ -93,6 +92,10 @@ public class InvoiceAPI extends HttpServlet {
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		Map paras = getParasMap(request); 
+		String output = invoiceObj.deleteService(paras.get("id").toString()); 
+		response.getWriter().write(output);
 	}
 
 }

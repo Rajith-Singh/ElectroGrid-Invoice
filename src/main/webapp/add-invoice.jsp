@@ -47,7 +47,7 @@
          <form class="form" id="formInvoice" name="formInvoice">  
             <div class="form-group">
             	<h4>Add Customer NIC</h4>
-               <input type="text" placeholder="* Customer NIC" name="cus-nic" required />
+               <input type="text" placeholder="* Customer NIC" name="cus_nic" required />
             </div>
             <div class="form-group">
                <h4>Add Month</h4>
@@ -58,12 +58,7 @@
                <input type="number" placeholder="* No of Units" name="unit_calculation" />
             </div>
                   
-<!--         <input type="submit" class="btn btn-primary my-1" id="btnSave"> Submit </button>  -->
-         
-          <input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary my-1">
-
-<!--  		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary my-1">  -->
-
+         <input type="submit" class="btn btn-primary my-1" id="btnSave"> 
             
 			<input type="hidden" id="hidInvoiceIDSave" name="hidInvoiceIDSave" value="">
             

@@ -26,8 +26,7 @@ public class Invoice
 			} 
 		
 		
-		public String insertService(String cus_nic, String month, String unit_calculation){ 
-			
+		public String insertService(String cus_nic, String month, Double unit_calculation) { 			
 					String output = ""; 
 					
 					try
@@ -41,13 +40,33 @@ public class Invoice
 						} 
 						// create a prepared statement
 						
-						String query = "insert into invoice (`id`,`cus_nic`,`month`,`unit_calculation`) values (?, ?, ?, ?)";
+						String query = " insert into items ('id','cus_nic','month','unit_calculation') values (?, ?, ?, ?, ?)";
 						PreparedStatement preparedStmt = con.prepareStatement(query); 
 						// binding values
-						preparedStmt.setInt(1, 0);
-						preparedStmt.setString(2, cus_nic);
-						preparedStmt.setString(3, month);
-						preparedStmt.setString(4, unit_calculation);
+						 preparedStmt.setInt(1, 0); 
+						 preparedStmt.setString(2, cus_nic); 
+						 preparedStmt.setString(3, month); 
+//						 preparedStmt.setDouble(4, unit_calculation); 
+						 
+							if (unit_calculation <= 0) {
+								preparedStmt.setDouble(4, unit_calculation*0);
+							}
+							else if (unit_calculation <= 66) {
+								preparedStmt.setDouble(4, unit_calculation*7.85);
+							}
+							else if (unit_calculation <= 99) {
+								preparedStmt.setDouble(4, 66*7.85 + ((unit_calculation-66)*10));
+							}
+							else if (unit_calculation <= 132) {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + ((unit_calculation-99)*22.75)));
+							}
+							else if (unit_calculation <= 198) {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + (33*27.75 + ((unit_calculation-132)*32))));
+							}
+							else {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + (33*27.75 + (66*32 + ((unit_calculation-198)*45)))));
+							}
+
 						// execute the statement
  
 						preparedStmt.execute(); 
@@ -79,14 +98,13 @@ public class Invoice
 		 } 
 		 // Prepare the html table to be displayed
 			output = "<table border='1'>"
-					+ "<th> ID </th>"
 					+ "<th> Name </th>"
 					+ "<th> Address </th>"
 					+ "<th>Customer NIC</th>"
 					+ "<th>Month</th>" 
 					+ "<th>Total Amount</th>"
-					+ "<th>Update</th>"
-					+ "<th>Remove</th></tr>";
+					+ "<th>Action</th>"
+					+ "<th>Action</th></tr>";
 		
 		 String query = "select p.address, p.name, i.id, i.cus_nic, i.month, i.unit_calculation from person p, invoice i where p.nic = i.cus_nic"; 
 		 Statement stmt = con.createStatement(); 
@@ -131,7 +149,7 @@ public class Invoice
 
 			
 			
-			public String updateInvoice(String ID, String code, String name, String price, String desc){ 
+			public String updateService(String id, String cus_nic, String month, double unit_calculation){ 
 				
 					String output = ""; 
 					
@@ -141,19 +159,35 @@ public class Invoice
 								return "Error while connecting to the database for updating.";
 								} 
 							// create a prepared statement
-							String query = "UPDATE Invoices SET InvoiceCode=?,InvoiceName=?,InvoicePrice=?,InvoiceDescription=? WHERE InvoiceID=?"; 
+							String query = "UPDATE invoice SET cus_nic=?,month=?,unit_calculation=? WHERE id=?"; 
 							PreparedStatement preparedStmt = con.prepareStatement(query); 
 							// binding values
-							preparedStmt.setString(1, code); 
-							preparedStmt.setString(2, name); 
-							preparedStmt.setDouble(3, Double.parseDouble(price)); 
-							preparedStmt.setString(4, desc); 
-							preparedStmt.setInt(5, Integer.parseInt(ID)); 
+							preparedStmt.setString(1, cus_nic); 
+							preparedStmt.setString(2, month); 
+//							preparedStmt.setDouble(3, unit_calculation); 
+							if (unit_calculation <= 0) {
+								preparedStmt.setDouble(4, unit_calculation*0);
+							}
+							else if (unit_calculation <= 66) {
+								preparedStmt.setDouble(4, unit_calculation*7.85);
+							}
+							else if (unit_calculation <= 99) {
+								preparedStmt.setDouble(4, 66*7.85 + ((unit_calculation-66)*10));
+							}
+							else if (unit_calculation <= 132) {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + ((unit_calculation-99)*22.75)));
+							}
+							else if (unit_calculation <= 198) {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + (33*27.75 + ((unit_calculation-132)*32))));
+							}
+							else {
+								preparedStmt.setDouble(4, 66*7.85 + (33*10 + (33*27.75 + (66*32 + ((unit_calculation-198)*45)))));
+							}
 							// execute the statement
 							preparedStmt.execute(); 
 							con.close(); 
-							String newInvoices = readInvoices(); 
-							output = "{\"status\":\"success\",\"data\":\""+newInvoices+"\"}"; 
+							String newInvoice = readService(); 
+							output = "{\"status\":\"success\",\"data\":\""+newInvoice+"\"}"; 
 
 					} 
 					
@@ -169,7 +203,7 @@ public class Invoice
 			} 
 			
 			
-			public String deleteInvoice(String InvoiceID){ 
+			public String deleteService(String id){ 
 				
 					String output = ""; 
 					
@@ -180,14 +214,14 @@ public class Invoice
 							return "Error while connecting to the database for deleting."; 
 							} 
 						// create a prepared statement
-						String query = "delete from Invoices where InvoiceID=?"; 
+						String query = "delete from invoice where id=?"; 
 						PreparedStatement preparedStmt = con.prepareStatement(query); 
 						// binding values
-						preparedStmt.setInt(1, Integer.parseInt(InvoiceID)); 
+						preparedStmt.setInt(1, Integer.parseInt(id)); 
 						// execute the statement
 						preparedStmt.execute(); 
 						con.close(); 
-						String newInvoices = readInvoices(); 
+						String newInvoices = readService(); 
 						 output = "{\"status\":\"success\",\"data\":\""+newInvoices+"\"}"; 
 
 					} 

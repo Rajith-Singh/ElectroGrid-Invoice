@@ -58,7 +58,9 @@
                <input type="number" placeholder="* No of Units" name="unit_calculation" />
             </div>
                   
-         <input type="submit" class="btn btn-primary my-1" id="btnSave"> Submit </button> 
+<!--         <input type="submit" class="btn btn-primary my-1" id="btnSave"> Submit </button>  -->
+         
+          <input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary my-1">
 
 <!--  		<input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary my-1">  -->
 

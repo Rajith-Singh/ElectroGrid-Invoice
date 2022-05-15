@@ -150,6 +150,6 @@ function validateInvoiceForm()
 	return "Insert Unit calculation.";
 	}
 
-
+ 
 	return true;
 }
